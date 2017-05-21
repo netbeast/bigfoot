@@ -50,6 +50,7 @@ Inside each chapter a set of techniques, packages and code samples will be there
 ## Roadmap
 
 * [x] Define the scope of the project
+* [ ] Website
 * [ ] Open channels for collaborators \(chats, forums or emails\)
 * [ ] Write all strategies and language agnostic documentation
 * [ ] Write node wrapper
