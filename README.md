@@ -24,21 +24,25 @@ This is a sample in javascript. Check for \[python\] and \[other programming lan
 
 Inside each chapter a set of techniques, packages and code samples will be there for you to kickoff your project.
 
-* Discovery. _How to tell other devices that you are there._
+* [Discovery](/chapter1.md). _How to tell other devices that you are there._
   * Scan announce and ping
   * Discovery mechanisms
-  * Adapt to the medium
+  * Adapt to the network
 * Skills. _How to tell the other devices in the network about your capabilities._
   * Sensors and actuators
   * Dimensions and topics
   * Interacting with devices
   * Events
 * User experince. _How to communicate with humans._
+
   * Notifications
 
   * Automatically created UI
+
   * Webviews
+
 * Avanced. _How to do the most interesting stuff._
+
   * Authorisation
   * Histograms and data visualisation
   * Data fusion, sources of truth
@@ -46,6 +50,7 @@ Inside each chapter a set of techniques, packages and code samples will be there
 ## Roadmap
 
 * [x] Define the scope of the project
+* [ ] Open channels for collaborators \(chats, forums or emails\)
 * [ ] Write all strategies and language agnostic documentation
 * [ ] Write node wrapper
 * [ ] Write python wrappers
@@ -56,6 +61,4 @@ Inside each chapter a set of techniques, packages and code samples will be there
 ## But you are still offering a protocol?
 
 Yep. Well. Not exactly. Bigfoot _topics_ is a suggested data structure that works out of the box with other tools in the belt. Because, you know, we need things working together. Anyway those _topics_ are borrowed from many other smart home devices, IoT services and other stablished protocols. We are going to build _translators_ so you can use this schema as a middleware utility. But it is **not opinionated** and completely optional. As a fact they will have a `raw` method alternative to access all the params obscured by any tools, in case you want access to the internals of the things you are working with.
-
-
 
