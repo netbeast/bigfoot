@@ -1,0 +1,29 @@
+{
+  "name": "bigfoot",
+  "version": "0.0.1",
+  "description": "Toolbelt to create connected devices",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --no-semi --write **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netbeast/bigfoot.git"
+  },
+  "keywords": [
+    "iot",
+    "netbeast",
+    "ssdp",
+    "mqtt"
+  ],
+  "author": "jesus@netbeast.co",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/netbeast/bigfoot/issues"
+  },
+  "homepage": "https://github.com/netbeast/bigfoot#readme"
+}
