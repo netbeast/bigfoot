@@ -3,10 +3,8 @@ const Ssdp = require('node-ssdp')
 const express = require('express')
 const app = express()
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/', function (req, res) {
-  res.send('hello world')
-})
+// Serve a web application to use as user interface or show data
+app.use(express.static('public'))
 
 const httpServer = app.listen(3000, function () {
   const addr = httpServer.address().address
@@ -18,7 +16,7 @@ const httpServer = app.listen(3000, function () {
     location: `${addr}:${port}`,
     sourcePort: 1900,
   })
-  ssdpServer.addUSN('bigfoot:all')
+  ssdpServer.addUSN('bigfoot:app')
   ssdpServer.start()
 })
 
