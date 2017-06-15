@@ -7,6 +7,7 @@
     "example": "examples"
   },
   "scripts": {
+    "start": "node ./samples/mock-device",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --no-semi --write **/*.js"
   },

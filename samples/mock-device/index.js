@@ -1,20 +1,28 @@
 
 const Ssdp = require('node-ssdp')
 const express = require('express')
+var bodyParser = require('body-parser')
+const ip = require('ip')
 const app = express()
 
-let state = { power: 0 }
+let state = { active: 1 }
+
+app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
   // Here you can return the switch state
-  res.send(state)
+  console.log('\n State requested:')
+  console.log(state)
+  res.json(state)
 })
 
 app.post('/', function (req, res) {
   // Maybe perform some validation, change any device internal handling and then
   // return back the state
-  state = req.state
-  res.send(state)
+  state = req.body.state || state
+  console.log('\n State changed:')
+  console.log(state)
+  res.json(state)
 })
 
 const httpServer = app.listen(3000, function () {
@@ -24,10 +32,10 @@ const httpServer = app.listen(3000, function () {
 
   ssdpServer = new Ssdp.Server({
     suppressRootDeviceAdvertisements: true,
-    location: `${addr}:${port}`,
+    location: `http://${ip.address()}:${port}`,
     sourcePort: 1900,
   })
-  ssdpServer.addUSN('bigfoot:switch')
+  ssdpServer.addUSN('bigfoot:bulb')
   ssdpServer.start()
 })
 

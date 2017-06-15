@@ -9,6 +9,7 @@
   "author": "jesus@netbeast.co",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "ip": "^1.1.5"
   }
 }
