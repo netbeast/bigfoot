@@ -53,7 +53,12 @@ Inside each chapter a set of techniques, packages and code samples will be there
 * [ ] Website
 * [ ] Open channels for collaborators \(chats, forums or emails\)
 * [ ] Write all strategies and language agnostic documentation
+  * [x] Discovery
+  * [x] Ping
+  * [x] setState
+  * [ ] setProps
 * [ ] Write node wrapper
+  * [x] Samples
 * [ ] Write python wrappers
 * [ ] Write C, Go or community chosen wrapper
 * [ ] Define translators for different platforms
@@ -62,4 +67,28 @@ Inside each chapter a set of techniques, packages and code samples will be there
 ## But you are still offering a protocol?
 
 Yep. Well. Not exactly. Bigfoot _topics_ is a suggested data structure that works out of the box with other tools in the belt. Because, you know, we need things working together. Anyway those _topics_ are borrowed from many other smart home devices, IoT services and other stablished protocols. We are going to build _translators_ so you can use this schema as a middleware utility. But it is **not opinionated** and completely optional. As a fact they will have a `raw` method alternative to access all the params obscured by any tools, in case you want access to the internals of the things you are working with.
+
+# Contributing
+
+Bigfoot is an Open Source Project. This means that:
+
+> Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
+
+# Collaborators
+
+This project is a reality today thanks to its contributors and sponsors. 
+We are proud to be part of the Toptal Open Source grant program, and compatible with Yeti
+
+<a href="https://getyeti.co" target="_blank">
+   <img alt="works with yeti" src="works-with-yeti.png" height="80px" />
+</a>
+
+<a href="https://www.toptal.com/" target="_blank">
+  <img
+    alt="Toptal OSS"
+    height="80px"
+    src="https://bs-uploads.toptal.io/blackfish-uploads/branding_page/content/logo_example_file/logo_example/412/logo-ef4e3458c482141a5c668b5b0ef49a21.png" />
+</a>
 
