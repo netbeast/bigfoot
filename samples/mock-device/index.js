@@ -5,7 +5,12 @@ var bodyParser = require('body-parser')
 const ip = require('ip')
 const app = express()
 
-let state = { active: 1 }
+let state = {
+  power: 1,
+  color: '#ffff00',
+  brightness: 80,
+  temperature: 50,
+}
 
 app.use(bodyParser.json())
 
@@ -28,7 +33,7 @@ app.post('/', function (req, res) {
 const httpServer = app.listen(3000, function () {
   const addr = httpServer.address().address
   const port = httpServer.address().port
-  console.log('👾 Bigfoot ping example started on %s:%s', addr, port)
+  console.log('👾 Bigfoot device mock started on %s:%s', addr, port)
 
   ssdpServer = new Ssdp.Server({
     suppressRootDeviceAdvertisements: true,
