@@ -22,6 +22,10 @@ This is a sample in javascript. Check for \[python\] and \[other programming lan
 
 ### Contents
 
+* Docs – [Gitbook site](https://netbeast.gitbooks.io/bigfoot/)
+* [Get started](https://netbeast.gitbooks.io/bigfoot/get-started.html)
+
+
 Inside each chapter a set of techniques, packages and code samples will be there for you to kickoff your project.
 
 * [Discovery](/chapter1.md). _How to tell other devices that you are there._
@@ -34,15 +38,10 @@ Inside each chapter a set of techniques, packages and code samples will be there
   * Interacting with devices
   * Events
 * User experince. _How to communicate with humans._
-
   * Notifications
-
   * Automatically created UI
-
   * Webviews
-
 * Avanced. _How to do the most interesting stuff._
-
   * Authorisation
   * Histograms and data visualisation
   * Data fusion, sources of truth
@@ -51,18 +50,24 @@ Inside each chapter a set of techniques, packages and code samples will be there
 
 * [x] Define the scope of the project
 * [ ] Website
+* [x] Canny
 * [ ] Open channels for collaborators \(chats, forums or emails\)
-* [ ] Write all strategies and language agnostic documentation
+* [ ] Write strategies and language agnostic documentation
+  * [x] Get Started
   * [x] Discovery
   * [x] Ping
   * [x] setState
   * [ ] setProps
+  * [ ] Reactive events
+  * [ ] Authentication
+  * [ ] Notifications
+  * [ ] Network
 * [ ] Write node wrapper
-  * [x] Samples
+  * [x] Code samples
+  * [ ] Working samples with virtual devices
+  * [ ] Working samples with real devices
 * [ ] Write python wrappers
 * [ ] Write C, Go or community chosen wrapper
-* [ ] Define translators for different platforms
-* [ ] Write node and python translators
 
 ## But you are still offering a protocol?
 
