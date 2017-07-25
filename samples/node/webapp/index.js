@@ -1,6 +1,7 @@
 
 const Ssdp = require('node-ssdp')
 const express = require('express')
+const ip = require('ip')
 const app = express()
 
 // Serve a web application to use as user interface or show data
@@ -13,10 +14,10 @@ const httpServer = app.listen(3000, function () {
 
   ssdpServer = new Ssdp.Server({
     suppressRootDeviceAdvertisements: true,
-    location: `${addr}:${port}`,
+    location: `http://${ip.address()}:${port}`,
     sourcePort: 1900,
   })
-  ssdpServer.addUSN('bigfoot:app')
+  ssdpServer.addUSN('bigfoot:web')
   ssdpServer.start()
 })
 
