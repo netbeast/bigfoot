@@ -353,7 +353,7 @@ export type ThermostatState = {
 ## Roadmap
 
 * [x] Define the scope of the project
-* [ ] Website
+* [x] Website
 * [x] Canny
 * [ ] Open channels for collaborators \(chats, forums or emails\)
 * [ ] Write strategies and language agnostic documentation
@@ -372,7 +372,7 @@ export type ThermostatState = {
 * [ ] Write go wrappers
   * [x] Code samples
   * [ ] Working samples with virtual devices
-  * [x] Working samples with real devices
+  * [] Working samples with real devices
 * [ ] Write C, Go or community chosen wrapper
 
 ## But you are still offering a protocol?
