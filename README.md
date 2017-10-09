@@ -2,55 +2,13 @@
 
 A toolbet for IoT software tools that work together.
 
-## Why?
+1. Discover devices automatically
+2. Have premade or many compatible user interfaces
+3. Simple, lightweight APIs
 
-Developing is hard. Being disruptive is harder. Industry won't stop trying to impose new protocols and standards. Indies won't stop creating open source projects that everyone should adopt --[we also did](https://github.com/netbeast/dashboard)--. **So the Bigfoot project is a collection of already existing tools that work together out of the box** and will help you develop your next connected _thing_ as soon as possible.
+## How does it work?
 
-Imagine you just want to implement a doorbell that sends you a push notification. Simple right? Well, not so much. You will easily find yourself trying to write wires towards 3rd party middleware or worse, server code or mobile apps. When you first start your prototype, you did not want all this fuzz. In an ideal world your doorbell would just declare that it is _there_ and it can be _pressed_.
-
-**Well, you can. Now.**
-
-```javascript
-// Your connected service / device code
-// thing.js
-const Bigfoot = require('@netbeast/bigfoot')
-const server = Bigfoot.alive()
-Bigfoot.announce('pressed')
-```
-
-```javascript
-// Your application / interface code
-// client.js
-const Bigfoot = require('@netbeast/bigfoot')
-Bigfoot.scan(function (devices) {
-  if (devices.length === 0) {
-    return console.log('No devices available')
-  }
-  
-  const firstDevice = devices[0]
-  console.log('Found a first device')
-  console.log(firstDevice)
-  Bigfoot.setState(firstDevice, {
-    hue: 200, // deg
-    brightness: 0.9, // percentage over a unit
-  })
-})
-```
-
-This is a sample in javascript. Check for \[python\] and \[other programming languages\].
-
-> Best of all? You don't even need the bigfoot library. It is just a wrapper of the tools you are already using.  So you do not need to learn a new framework. Take a look on each section of the docs depending on which network / protocol / topic of the device you are planning to build
-
-### Contents
-
-Inside each chapter a set of techniques, packages and code samples will be there for you to kickoff your project.
-
-* Get started
-* API Primitives
-* Discovery
-* State and Props
-* ~~Signals and events~~ *Coming soon*
-* ~~Advanced~~ *Coming soon*
+![concept](concept.png)
 
 # Get started
 
@@ -60,124 +18,30 @@ This guide will allow you to mock up your first connected device in less than a 
 
 Any Bigfoot-compatible software would work. By the moment Bigfoot is fairly young, so this is the first end user software tool that supports it. You can also help open source software as [Netbeast Dashboard](https://github.com/netbeast/dashboard) implement it.
 
-2. **Choose a sample scaffold from the Bigfoot Project**
+2. **Choose a sample scaffold from the Bigfoot Project**.
 
 ```
-git clone https://github.com/netbeast/bigfoot-js
-cd bigfoot/samples/node/mock-device
+git clone https://github.com/netbeast/bigfoot-node
+cd bigfoot-node/samples/mock-device
 npm install
-npm run sample
+npm start
 ```
 
-This is a sample in node.js. There also exist [bigfoot-golang](https://github.com/netbeast/). We are looking for collaborators to create samples in other languages such as lua or python. Please send us a pull request!
+This is a sample in node.js. There are also in [bigfoot-golang](https://github.com/netbeast/bigfoot-golang). We are looking for collaborators to create samples in other languages such as lua or python. Please send us a pull request!
 
 3. **Explore devices in Yeti**
 
 Done 👏🏽
 
-# API Primitives
-A primitive is a definition of something, that after can be implemented in a programming language in an API. This section will describe the API of Bigfoot in JS using [Flow type](https://flow.org/), but aims to describe all the possibilities regardless of the programming language or architecture used to implement those. The following chapters will describe how do they work.
-
-It is not directly available yet, in exchange, it is available through examples implemented in RAW node.js.
-
-## Device model
-A device has the following JSON structure:
-```
-  {
-    id: 'Unique string to identify a device',
-    name: 'UX for the user',
-    model: 'in case you have several APIs for different hardware',
-    brand: 'Your alias as maker if you will',
-    topic: 'Bulb | Switch | Music | Camera | Thermostat', // A string that identifies the dimensions and capabilities of a device
-    props: {
-      [dimension: string]: any,    
-    },
-    state: {
-      [dimension: string]: any,
-    }
-```
-
-A list of common topics, props and state is available in `Skills`
-
-## Device primitives
-### `Bigfoot.alive: (snapshotRequest: (params?: Object) => Promise) => Promise`
-Will alert the existance of a Bigfoot device in the network, using any discovery methods available. Check the `Discovery` section below to see what protocols are implemented.
-
-It also accepts a _Snapshop_ request. This is the function that is going to be run when the device is discovered in the network or it's definition is required (as in a ping, a getProps or a getState)
-
-```
-const server = Bigfoot.alive(function onSnapshotRequest (params) {
-  // Params is a plain object with information from the requester, can be used as a wildcard or ignored
-  const device = {
-    id: 'Unique string to identify a device',
-    name: 'UX for the user',
-    model: 'in case you have several APIs for different hardware',
-    brand: 'Your alias as maker if you will',
-    topic: 'Bulb | Switch | Music | Camera | Thermostat' // A string that identifies the dimensions and capabilities of a device
-    props: { ip: '192.168.0.33' },
-    state: { power: true },
-  }
-  return Promise.resolve()
-})
-```
-
-### `Bigfoot.didReceiveState: (nextState: Object) => Promise`
-Following a React-style API, Bigfoot will trigger such event for us to handle the state changes requests in a device. Check the `Skills` section below to see what network protocols and strategies are available. You can reject the Promise to notify the user that an error has ocurred.
-
-```
-Bigfoot.didReceiveState(function (nextProps: Object) {
-  // Here you can do whatever is necessary to store props
-  return Promise.resolve()
-})
-```
-
-> Props are not supposed to be changeable from the client, therefore immutable.
-
-## Client primitives
-
-### `Bigfoot.scan: (onFoundListener: () => void) => Promise`
-Will use all the available discovery methods to find bigfoot devices in all available networks. Check the `Discovery` section below to see what protocols are implemented.
-
-> By the moment the list of compatible protocols to implement the primitives is limited. We want you to submit PR, creating API-compatible agents for the protocols you need.
-> The protocols so far include: SSDP and HTTP
-> Following discovery protocols: Bluetooth (for other radio channels), mDNS (WiFi) and an open registry for cloud devices.
-> Following skills protocols: MQTT, COAP
-
-## `Bigfoot.setState(device: Device, nextState: Object)`
-Change the `state` field of a device object over the network, with any result on the physical remote state that the device would implement.
-
-```
-Bigfoot.setState(firstDevice, {
-  hue: 200, // deg
-  brightness: 0.9, // percentage over a unit
-})
-```
-
-> Props are not supposed to be changeable from the client, therefore immutable.
-
 # Discovery
-
-## Scan, announce and ping
-
-Regardless of network or technology, there are 3 main discovery primitives to keep an IoT system coherent:
-
-* **Scan.** When you ask the network about a kind of device you are not familiar with.
-* **Announce. **Unsolicited promotion of the device, in case some device needs your skills.
-* **Ping. **Check the availability of a device at a network level, to keep considering it as alive.
-
-Well that was brief. But we now must know that each primitive will be implemented in a different way for each medium and network we are trying to communicate over. For example, scanning over a WiFi network may be implemented with SSDP, broadcast UDP requests or a custom multicast implementation. For devices connected over the cloud you will need a register to scan upon, or previous knowledge of the device so you can ping it.
-
-# Discovery primitives
-
-### Scan
-
-For each **scan** mechanism there must be an **active scan request** \(some devices that asks the network on a scan\) and a device that is patiently waiting a scan request. The easiest method to make your device discoverable is to subscribe to the SSDP multicast address:
+Allow your device to be discovered by Yeti or any other Bigfoot  client.
 
 ```js
 var Server = require('node-ssdp').Server
 
 server = new Server({
   sourcePort: 1900,
+  udn: 'my-unique-string-identidier', 
 })
 
 server.addUSN('bigfoot:all')
@@ -193,7 +57,10 @@ Check out the repo for examples in [golang](https://github.com/netbeast/bigfoot/
 
 Congratulations, your device is alive!
 
-![](/assets/Screenshot_20170603-192308.png)
+![found](found.png)
+![values](json-tree.png)
+
+At the right you have the bare values of your device. It still has no functionality, so it will fail when you try to control it. Let's keep learning.
 
 ### Ping
 
@@ -231,16 +98,39 @@ process.on('exit', function() {
 As you'd notice already, our device is still pretty dumb. We can only see it appear in our Yeti \(Bigfoot compatible\) device. This is because we had not specify any skill or topic that it can work as. So let's move on now.
 
 # Skills
+We can now already expose a webview for our connected device to a Bigfoot compatible software:
+
+```js
+// node/samples/webapp
+const Ssdp = require('node-ssdp')
+const express = require('express')
+const ip = require('ip')
+const app = express()
+
+// Serve a web application to use as user interface or show data
+app.use(express.static('public'))
+
+const httpServer = app.listen(3000, function () {
+  const addr = httpServer.address().address
+  const port = httpServer.address().port
+  console.log('👾 Bigfoot webapp example started on %s:%s', addr, port)
+
+  ssdpServer = new Ssdp.Server({
+    location: `http://${ip.address()}:${port}`,
+    udn: 'Bigfoot_very-unique-bigfoot',
+    sourcePort: 1900,
+  })
+  ssdpServer.addUSN('bigfoot:web')
+  ssdpServer.start()
+})
+
+process.on('exit', function() {
+  ssdpServer.stop() // advertise shutting down and stop listening
+  app.stop() // close express server
+})
+```
 
 After discovery or a request for your skills descriptor you must be able to communicate the things you are able to do, and let the other parties understand. Skills are grouped in _topics_, so when you declare a topic every other Bigfoot compatible machine understands how to communicate with it immediately.
-
-There are only a few topics available by the moment:
-
-* `Bulb`: to control lightning systems
-* `Music` : things that can consume 
-* `Thermostat`: a heat / cold system
-* `Switch`: a plug or system with two states \(on/off\)
-* `App`: exposes an app through a webserver, so the developer can implement its own interface.
 
 To declare an interface you'd only need to specify the topic on the USN:
 
@@ -252,57 +142,68 @@ ssdpServer.addUSN('bigfoot:app')
 
 And Bigfoot compatible devices are going to interpret it as different devices.
 
-We can now already expose a webview for our connected device to a Bigfoot compatible software:
-
-```js
-const Ssdp = require('node-ssdp')
-const express = require('express')
-const app = express()
-
-app.get('/', function (req, res) {
-  // Here you can handle all the requests that will be shown as a webview
-  res.send()
-})
-
-const httpServer = app.listen(3000, function () {
-  const addr = httpServer.address().address
-  const port = httpServer.address().port
-  console.log('👾  Bigfoot ping sample started on %s:%s', addr, port)
-
-  ssdpServer = new Ssdp.Server({
-    location: `${addr}:${port}`,
-    sourcePort: 1900,
-  })
-
-  /*
-  * Notice the `app` is declared under USN
-  */
-  ssdpServer.addUSN('bigfoot:app')
-  ssdpServer.start()
-})
-
-process.on('exit', function() {
-  /* Handle exit */
-})
-```
+### Available topics
+* `App`: exposes an app through a webserver, so the developer can implement its own interface.
+* `Bridge`: a device that can find and talk to other devices
+* `Bulb`: to control lightning systems
+* `Music` : things that can consume 
+* `Thermostat`: a heat / cold system
+* `Switch`: a plug or system with two states \(on/off\)
 
 ## Implementing a topic
 
 To understand Bigfoot messages you only must implement a protocol to listen for the primites and then specify it under location. The switch topic is the simplest because you only have to understand ON / OFF set requests and to return the state. This will be done by HTTP POST and GET methods respectively.
 
 ```js
-let state = { power: 0 }
+// node/samples/mock-device
+const Ssdp = require('node-ssdp')
+const express = require('express')
+var bodyParser = require('body-parser')
+const ip = require('ip')
+const app = express()
+
+let state = {
+  power: 1,
+  color: '#ffff00',
+  brightness: 80,
+  temperature: 50,
+}
+
+app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
   // Here you can return the switch state
-  res.send(state)
+  console.log('\n State requested:')
+  console.log(state)
+  res.json(state)
 })
 
 app.post('/', function (req, res) {
   // Maybe perform some validation, change any device internal handling and then
   // return back the state
-  state = req.state
-  res.send(state)
+  state = req.body.state || state
+  console.log('\n State changed:')
+  console.log(state)
+  res.json(state)
+})
+
+const httpServer = app.listen(3000, function () {
+  const addr = httpServer.address().address
+  const port = httpServer.address().port
+  console.log('👾 Bigfoot device mock started on %s:%s', addr, port)
+
+  ssdpServer = new Ssdp.Server({
+    suppressRootDeviceAdvertisements: true,
+    location: `http://${ip.address()}:${port}`,
+    sourcePort: 1900,
+  })
+  ssdpServer.addUSN('bigfoot:bulb')
+  ssdpServer.start()
+})
+
+process.on('exit', function() {
+  ssdpServer.stop() // advertise shutting down and stop listening
+  app.stop() // close express server
 })
 ```
 
@@ -315,6 +216,7 @@ export type BulbState = {
   brightness: number, // percentage 0-100
   hue?: number, // degrees 0-360
   saturation?: number, // percentage 0-100
+  color?: string, // hex conversion of the values above
 }
 ```
 
@@ -329,6 +231,7 @@ export type BulbState = {
   brightness: number, // percentage 0-100
   hue?: number, // degrees 0-360
   saturation?: number, // percentage 0-100
+  color?: string, // hex conversion of the values above
 }
 
 export type SwitchState = { power: PowerState }
@@ -349,6 +252,11 @@ export type ThermostatState = {
   mode?: string,
 }
 ```
+
+## Create a bridge
+You can use special topics as `app` or `bridge` to connect with devices that are outside current compatible protocols.
+
+The only difference is that the `state` that we must return is an array of devices.
 
 ## Roadmap
 
