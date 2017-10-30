@@ -6,6 +6,7 @@
 # Copyright (C) 2006 Fluendo, S.A. (www.fluendo.com).
 # Copyright 2006,2007,2008,2009 Frank Scholz <coherence@beebits.net>
 # Copyright 2016 Erwan Martin <public@fzwte.net>
+# 2017 Jose Rivera <info@joserivera.org> - Tiny mods
 #
 # Implementation of a SSDP server.
 #
@@ -31,8 +32,11 @@ class SSDPServer:
     datagram is received by the server."""
     known = {}
 
-    def __init__(self):
+    def __init__(self, ssdp_port=SSDP_PORT, ssdp_addr=SSDP_ADDR, server_id=SERVER_ID):
         self.sock = None
+        self.SSDP_PORT = ssdp_port
+        self.SSDP_ADDR = ssdp_addr
+        self.SERVER_ID = server_id
 
     def run(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -47,11 +51,11 @@ class SSDPServer:
                 else:
                     raise
 
-        addr = socket.inet_aton(SSDP_ADDR)
+        addr = socket.inet_aton(self.SSDP_ADDR)
         interface = socket.inet_aton('0.0.0.0')
         cmd = socket.IP_ADD_MEMBERSHIP
         self.sock.setsockopt(socket.IPPROTO_IP, cmd, addr + interface)
-        self.sock.bind(('0.0.0.0', SSDP_PORT))
+        self.sock.bind(('0.0.0.0', self.SSDP_PORT))
         self.sock.settimeout(1)
 
         while True:
@@ -97,7 +101,7 @@ class SSDPServer:
         else:
             logger.warning('Unknown SSDP command %s %s' % (cmd[0], cmd[1]))
 
-    def register(self, manifestation, usn, st, location, server=SERVER_ID, cache_control='max-age=1800', silent=False,
+    def register(self, manifestation, usn, st, location, server=self.SERVER_ID, cache_control='max-age=1800', silent=False,
                  host=None):
         """Register a service or device that this SSDP server will
         respond to."""
@@ -176,7 +180,7 @@ class SSDPServer:
 
         resp = [
             'NOTIFY * HTTP/1.1',
-            'HOST: %s:%d' % (SSDP_ADDR, SSDP_PORT),
+            'HOST: %s:%d' % (self.SSDP_ADDR, self.SSDP_PORT),
             'NTS: ssdp:alive',
         ]
         stcpy = dict(self.known[usn].items())
@@ -191,8 +195,8 @@ class SSDPServer:
         resp.extend(('', ''))
         logger.debug('do_notify content', resp)
         try:
-            self.sock.sendto('\r\n'.join(resp).encode(), (SSDP_ADDR, SSDP_PORT))
-            self.sock.sendto('\r\n'.join(resp).encode(), (SSDP_ADDR, SSDP_PORT))
+            self.sock.sendto('\r\n'.join(resp).encode(), (self.SSDP_ADDR, self.SSDP_PORT))
+            self.sock.sendto('\r\n'.join(resp).encode(), (self.SSDP_ADDR, self.SSDP_PORT))
         except (AttributeError, socket.error) as msg:
             logger.warning("failure sending out alive notification: %r" % msg)
 
@@ -203,7 +207,7 @@ class SSDPServer:
 
         resp = [
             'NOTIFY * HTTP/1.1',
-            'HOST: %s:%d' % (SSDP_ADDR, SSDP_PORT),
+            'HOST: %s:%d' % (self.SSDP_ADDR, self.SSDP_PORT),
             'NTS: ssdp:byebye',
         ]
         try:
@@ -219,7 +223,7 @@ class SSDPServer:
             logger.debug('do_byebye content', resp)
             if self.sock:
                 try:
-                    self.sock.sendto('\r\n'.join(resp), (SSDP_ADDR, SSDP_PORT))
+                    self.sock.sendto('\r\n'.join(resp), (self.SSDP_ADDR, self.SSDP_PORT))
                 except (AttributeError, socket.error) as msg:
                     logger.error("failure sending out byebye notification: %r" % msg)
         except KeyError as msg:
