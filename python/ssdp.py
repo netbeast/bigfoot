@@ -20,11 +20,9 @@ from errno import ENOPROTOOPT
 
 SSDP_PORT = 1900
 SSDP_ADDR = '239.255.255.250'
-SERVER_ID = 'ZeWaren example SSDP Server'
-
+SERVER_ID = 'bigfoot-compatible SSDP Server'
 
 logger = logging.getLogger()
-
 
 class SSDPServer:
     """A class implementing a SSDP server.  The notify_received and
@@ -32,7 +30,8 @@ class SSDPServer:
     datagram is received by the server."""
     known = {}
 
-    def __init__(self, ssdp_port=SSDP_PORT, ssdp_addr=SSDP_ADDR, server_id=SERVER_ID):
+    def __init__(self, ssdp_port=SSDP_PORT, ssdp_addr=SSDP_ADDR,
+                 server_id=SERVER_ID):
         self.sock = None
         self.SSDP_PORT = ssdp_port
         self.SSDP_ADDR = ssdp_addr
@@ -90,7 +89,8 @@ class SSDPServer:
         headers = [x.split(':', 1) for x in lines]
         headers = dict(map(lambda x: (x[0].lower(), x[1]), headers))
 
-        logger.info('SSDP command %s %s - from %s:%d' % (cmd[0], cmd[1], host, port))
+        logger.info(
+            'SSDP command %s %s - from %s:%d' % (cmd[0], cmd[1], host, port))
         logger.debug('with headers: {}.'.format(headers))
         if cmd[0] == 'M-SEARCH' and cmd[1] == '*':
             # SSDP discovery
@@ -101,8 +101,8 @@ class SSDPServer:
         else:
             logger.warning('Unknown SSDP command %s %s' % (cmd[0], cmd[1]))
 
-    def register(self, manifestation, usn, st, location, server=self.SERVER_ID, cache_control='max-age=1800', silent=False,
-                 host=None):
+    def register(self, manifestation, usn, st, location,
+                 cache_control='max-age=1800', silent=False, host=None):
         """Register a service or device that this SSDP server will
         respond to."""
 
@@ -113,7 +113,7 @@ class SSDPServer:
         self.known[usn]['LOCATION'] = location
         self.known[usn]['ST'] = st
         self.known[usn]['EXT'] = ''
-        self.known[usn]['SERVER'] = server
+        self.known[usn]['SERVER'] = self.SERVER_ID
         self.known[usn]['CACHE-CONTROL'] = cache_control
 
         self.known[usn]['MANIFESTATION'] = manifestation
