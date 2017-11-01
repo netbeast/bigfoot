@@ -1,0 +1,14 @@
+{
+  "name": "bigfoot-discovery",
+  "version": "0.0.1",
+  "description": "Sample on how to make your device discoverable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jesus@netbeast.co",
+  "license": "ISC",
+  "dependencies": {
+    "node-ssdp": "^3.2.1"
+  }
+}
