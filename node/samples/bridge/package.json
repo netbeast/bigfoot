@@ -2,10 +2,9 @@
   "name": "bigfoot-bridge",
   "version": "0.0.1",
   "description": "Sample on how to make your device discoverable",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "node_modules/.bin/mocha",
+    "start": "node server.js"
   },
   "author": "jesus@netbeast.co",
   "license": "ISC",
@@ -13,6 +12,12 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "ip": "^1.1.5",
-    "node-ssdp": "^3.2.1"
+    "node-ssdp": "^3.2.1",
+    "redux-zero": "^4.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   }
 }
