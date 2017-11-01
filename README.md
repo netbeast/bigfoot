@@ -3,7 +3,7 @@
 A toolbet for IoT software tools that work together.
 
 1. Discover devices automatically
-2. Have premade or many compatible user interfaces
+2. Have pre-made or many compatible user interfaces
 3. Simple, lightweight APIs
 
 ## How does it work?
@@ -16,7 +16,10 @@ This guide will allow you to mock up your first connected device in less than a 
 
 1. **Download [Yeti Smart Home](https://getyeti.co/)**
 
-Any Bigfoot-compatible software would work. By the moment Bigfoot is fairly young, so this is the first end user software tool that supports it. You can also help open source software as [Netbeast Dashboard](https://github.com/netbeast/dashboard) implement it.
+Any Bigfoot-compatible software would work. Bigfoot is currently fairly young, so
+ this is the first end user software tool that supports it. 
+ You can also contribute IoT open source software as part of the 
+ [Netbeast Dashboard](https://github.com/netbeast/dashboard) to implement Bigfoot.
 
 2. **Choose a sample scaffold from the Bigfoot Project**.
 
@@ -27,14 +30,17 @@ npm install
 npm start
 ```
 
-This is a sample in node.js. There are also in [bigfoot-golang](https://github.com/netbeast/bigfoot-golang). We are looking for collaborators to create samples in other languages such as lua or python. Please send us a pull request!
+This is a sample in node.js. There are also samples in 
+[bigfoot-golang](https://github.com/netbeast/bigfoot/golang) and 
+[python](https://github.com/netbeast/bigfoot/python). We are looking for collaborators 
+to create samples in other languages such as lua. Please send us a pull request!
 
 3. **Explore devices in Yeti**
 
 Done 👏🏽
 
 # Discovery
-Allow your device to be discovered by Yeti or any other Bigfoot  client.
+Allow your device to be discovered by Yeti or any other Bigfoot client.
 
 ```js
 var Server = require('node-ssdp').Server
@@ -53,18 +59,26 @@ process.on('exit', function() {
 })
 ```
 
-Check out the repo for examples in [golang](https://github.com/netbeast/bigfoot/tree/master/samples/golang) or other languages.
+Check out the repo for examples in 
+[golang](https://github.com/netbeast/bigfoot/golang), 
+[python](https://github.com/netbeast/bigfoot/python) or other languages.
 
 Congratulations, your device is alive!
 
 ![found](found.png)
 ![values](json-tree.png)
 
-At the right you have the bare values of your device. It still has no functionality, so it will fail when you try to control it. Let's keep learning.
+At the right you have the bare values of your device. It still has no 
+functionality, so it will fail when you try to control it. 
+
+Let's keep learning...
 
 ### Ping
 
-This is intended to be the most lightweight method to check that connectivity to your device works. If you implement an interface through HTTP \(as described in [skills](/skills.md)\) we'd only need to specify the port where the service is running as the **location** parameter:
+This is intended to be the most lightweight method to check that connectivity 
+to your device works. If you implement an interface through HTTP 
+\(as described in [skills](/skills.md)\) we'd only need to specify the port 
+where the service is running as the **location** parameter:
 
 ```js
 const Ssdp = require('node-ssdp')
@@ -95,7 +109,9 @@ process.on('exit', function() {
 })
 ```
 
-As you'd notice already, our device is still pretty dumb. We can only see it appear in our Yeti \(Bigfoot compatible\) device. This is because we had not specify any skill or topic that it can work as. So let's move on now.
+As you'd notice already, our device is still pretty dumb. We can only see it 
+appears in our Yeti \(Bigfoot compatible\) device. This is because we had not 
+specified any skill or topic that it can work as. So let's move on now.
 
 # Skills
 We can now already expose a webview for our connected device to a Bigfoot compatible software:
@@ -130,9 +146,14 @@ process.on('exit', function() {
 })
 ```
 
-After discovery or a request for your skills descriptor you must be able to communicate the things you are able to do, and let the other parties understand. Skills are grouped in _topics_, so when you declare a topic every other Bigfoot compatible machine understands how to communicate with it immediately.
+After discovery or a request for your skills descriptor you must be able to 
+communicate the things you are able to do, and let the other parties be aware 
+of them. Skills are grouped in _topics_, so when you declare a topic every 
+other Bigfoot compatible machine understands how to communicate with it 
+immediately.
 
 To declare an interface you'd only need to specify the topic on the USN:
+
 
 ```js
 ssdpServer.addUSN('bigfoot:bulb')
@@ -152,7 +173,10 @@ And Bigfoot compatible devices are going to interpret it as different devices.
 
 ## Implementing a topic
 
-To understand Bigfoot messages you only must implement a protocol to listen for the primites and then specify it under location. The switch topic is the simplest because you only have to understand ON / OFF set requests and to return the state. This will be done by HTTP POST and GET methods respectively.
+To understand Bigfoot messages you must only implement a protocol to listen to 
+the primitives and then specify it under `location`. The switch topic is the 
+simplest because you only have to understand `ON / OFF` set requests and to 
+return the state. This will be done by HTTP POST and GET methods respectively.
 
 ```js
 // node/samples/mock-device
@@ -207,7 +231,10 @@ process.on('exit', function() {
 })
 ```
 
-Topics stand for a _kind_ of device and groups a set of variables or dimensions to be used. It is a shortcut for the skills of a Device. For example if the topic of your thing is _light_ or _bulb_ the rest of the parties will immediately know that you must support a certain state:
+**Topics** stand for a _kind_ of device and groups a set of variables or dimensions
+ to be used. It is a shortcut for the **skills of a device**. For example if 
+ the topic of your thing is _light_ or _bulb_ the rest of the parties will 
+ immediately know that you must support a certain state:
 
 ```js
 /* @flow */
@@ -220,7 +247,8 @@ export type BulbState = {
 }
 ```
 
-\*\_ [Flow](https://flow.org/) is used to describe data types and interfaces throughout the codebase
+\*\_ [Flow](https://flow.org/) is used to describe data types and interfaces 
+throughout the codebase
 
 These are the topics supported by Netbeast Dashboard so far:
 
@@ -254,9 +282,11 @@ export type ThermostatState = {
 ```
 
 ## Create a bridge
-You can use special topics as `app` or `bridge` to connect with devices that are outside current compatible protocols.
+You can use special topics as `app` or `bridge` to connect with devices that 
+are outside current compatible protocols.
 
-The only difference is that the `state` that we must return is an array of devices.
+The only difference is that the `state` that we must return is an array of 
+devices.
 
 ## Roadmap
 
@@ -285,17 +315,32 @@ The only difference is that the `state` that we must return is an array of devic
 
 ## But you are still offering a protocol?
 
-Not at all. Bigfoot project aims to gather a set of strategies over existing protocols and industry standards to make it easier for developers and makers to create IoT experiences together. As React brought us that to representation interfaces, Bigfoot wants you to be able to create React-like hardware responses in a network environment with a set of simple and functional APIs.
+Not at all. Bigfoot project aims to gather a set of strategies over existing 
+protocols and industry standards to make it easier for developers and 
+manufacturers to create IoT experiences together. As React brought us that to 
+representation interfaces, Bigfoot wants you to be able to create React-like 
+hardware responses in a network environment with a set of simple and functional 
+APIs.
 
-Bigfoot _topics_ is a suggested data structure that works out of the box with other tools in the belt. Because, you know, we need things working together. Anyway those _topics_ are borrowed from many other smart home devices, IoT services and other stablished protocols. We are going to build _translators_ so you can use this schema as a middleware utility. But it is **not opinionated** and completely optional. As a fact they will have a `raw` method alternative to access all the params obscured by any tools, in case you want access to the internals of the things you are working with.
+Bigfoot _topics_ is a suggested data structure that works out of the box with 
+other tools in the belt. Because, you know, we need things working together :) 
+
+Anyway, those _topics_ are borrowed from many other smart home devices, IoT 
+services and other established protocols. We are going to build _translators_ 
+so you can use this schema as a middleware utility. But this is 
+**not opinionated** and completely optional. As a matter of fact they will have 
+a `raw` method alternative to access all the params obscured by any tools, in 
+case you want access to the internals of the things you are working with.
 
 # Contributing
 
 Bigfoot is an Open Source Project. This means that:
 
-> Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
+> Individuals making significant and valuable contributions are given 
+commit-access to the project to contribute as they see fit. This project is 
+more like an open wiki than a standard guarded open source project.
 
-See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
+See the [CONTRIBUTING.md](CONTRIBUTING.md) guide for more details.
 
 # Sponsors
 
