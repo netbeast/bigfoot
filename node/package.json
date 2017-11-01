@@ -1,0 +1,32 @@
+{
+  "name": "bigfoot",
+  "version": "0.0.1",
+  "description": "A node.js wrapper for the Bigfoot project",
+  "main": "bigfoot.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netbeast/bigfoot-node.git"
+  },
+  "author": "jesus@netbeast.co",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/netbeast/bigfoot-node/issues"
+  },
+  "homepage": "https://github.com/netbeast/bigfoot-node#readme",
+  "dependencies": {
+    "axios": "^0.17.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "ip": "^1.1.5",
+    "node-ssdp": "^3.2.5",
+    "stringcase": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
+  }
+}
