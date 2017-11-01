@@ -25,6 +25,6 @@ http_server.start()
 ssdp = SSDPServer()
 ssdp.register('local',
               'uuid:{}::upnp:rootdevice'.format(device_uuid),
-              'upnp:rootdevice',
+              'bigfoot:all',
               'http://localhost:8088/python-v1.xml')
 ssdp.run()
