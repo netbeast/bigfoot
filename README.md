@@ -8,7 +8,7 @@ A toolbet for IoT software tools that work together.
 
 ## How does it work?
 
-![concept](concept.png)
+![concept](assets/img/concept.png)
 
 # Get started
 
@@ -57,8 +57,8 @@ Check out the repo for examples in [golang](https://github.com/netbeast/bigfoot/
 
 Congratulations, your device is alive!
 
-![found](found.png)
-![values](json-tree.png)
+![found](assets/img/found.png)
+![values](assets/img/json-tree.png)
 
 At the right you have the bare values of your device. It still has no functionality, so it will fail when you try to control it. Let's keep learning.
 
@@ -261,27 +261,24 @@ The only difference is that the `state` that we must return is an array of devic
 ## Roadmap
 
 * [x] Define the scope of the project
-* [x] Website
-* [x] Canny
+* [x] [Website](https://netbeast.github.io/bigfoot/)
 * [ ] Open channels for collaborators \(chats, forums or emails\)
-* [ ] Write strategies and language agnostic documentation
+* [ ] Write strategies
   * [x] Get Started
   * [x] Discovery
   * [x] Ping
   * [x] setState
+  * [ ] Pairing devices
   * [ ] Reactive events
-  * [ ] Authentication
   * [ ] Notifications
-  * [ ] Network
-* [ ] Write node wrapper
+* [ ] Node.js 
   * [x] Code samples
-  * [ ] Working samples with virtual devices
+  * [x] Working samples with virtual devices
   * [x] Working samples with real devices
-* [ ] Write go wrappers
+* [ ] Go
   * [x] Code samples
-  * [ ] Working samples with virtual devices
-  * [] Working samples with real devices
-* [ ] Write C, Go or community chosen wrapper
+* [ ] Python
+  * [x] Code samples
 
 ## But you are still offering a protocol?
 
@@ -303,7 +300,7 @@ This project is a reality today thanks to its contributors and sponsors.
 We are proud to be part of the Toptal Open Source grant program, and compatible with Yeti
 
 <a href="https://getyeti.co" target="_blank">
-   <img alt="works with yeti" src="works-with-yeti.png" height="80px" />
+   <img alt="works with yeti" src="assets/img/works-with-yeti.png" height="80px" />
 </a>
 
 <a href="https://www.toptal.com/" target="_blank">
