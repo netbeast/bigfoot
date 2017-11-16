@@ -1,6 +1,6 @@
 {
   "name": "bigfoot",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "A node.js wrapper for the Bigfoot project",
   "main": "bigfoot.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/netbeast/bigfoot-node#readme",
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "ip": "^1.1.5",

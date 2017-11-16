@@ -2,6 +2,8 @@
 const { Client } = require('node-ssdp')
 const { capitalcase } = require('stringcase')
 
+const manifest = require('../package.json')
+
 const defaultOptions = {
   duration: 2500,
 }
@@ -43,12 +45,11 @@ function parseResponse (headers, statusCode, rinfo) {
     topic: capitalcase(topic.toLowerCase()),
     name: 'Bigfoot',
     brand: 'Bigfoot',
-    isCloud: false,
-    reachable: true,
-    _state: {},
-    _device: {
+    state: {},
+    meta: {
       rinfo,
       ...headers,
+      bigfoot_version: manifest.version,
     },
   }
 }

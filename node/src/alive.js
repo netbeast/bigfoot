@@ -6,10 +6,14 @@ const ip = require('ip')
 
 module.exports = ({udn, topic = 'all'}) => {
   return new Promise((resolve, reject) => {
-    const app = express()
-    app.use(bodyParser.json())
+    const api = express()
+    api.use(bodyParser.json())
 
-    const httpServer = app.listen(function () {
+    api.get('/', (req, res) => {
+      res.status(200).send()
+    })
+
+    const httpServer = api.listen(function () {
       const addr = httpServer.address().address
       const port = httpServer.address().port
 
@@ -27,7 +31,13 @@ module.exports = ({udn, topic = 'all'}) => {
         httpServer.close()
       })
 
-      return resolve({httpServer, ssdpServer})
+      return resolve({
+        api,
+        httpServer,
+        ssdpServer,
+        udn,
+        topic,
+      })
     })
   })
 }
