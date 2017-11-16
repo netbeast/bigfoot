@@ -22,14 +22,14 @@ describe('🐾  Bigfoot', function () {
   })
 
   it('should discover a bigfoot instance', async () => {
-    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const instance = await bigfoot.alive({id: 'unique-id'})
     const devices = await bigfoot.hunt({duration: 24})
     expect(devices['unique-id::bigfoot:all'].id).to.equal('unique-id::bigfoot:all')
     bigfoot.halt(instance)
   })
 
   it('should throw without bigfoot instance', async () => {
-    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const instance = await bigfoot.alive({id: 'unique-id'})
     const devices = await bigfoot.hunt({duration: 24})
     const target = devices['unique-id::bigfoot:all']
     bigfoot.halt(instance)
@@ -42,7 +42,7 @@ describe('🐾  Bigfoot', function () {
   })
 
   it('should poke an alive bigfoot instance', async () => {
-    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const instance = await bigfoot.alive({id: 'unique-id'})
     const devices = await bigfoot.hunt({duration: 24})
     const target = devices['unique-id::bigfoot:all']
     const result = await bigfoot.poke(target)
@@ -51,13 +51,18 @@ describe('🐾  Bigfoot', function () {
   })
 
   it('should enable a dummy device, without listeners', async () => {
-    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const instance = await bigfoot.alive({id: 'unique-id'})
     const devices = await bigfoot.hunt({duration: 24})
     const target = devices['unique-id::bigfoot:all']
     const nextState = { active: true }
     await bigfoot.setState(target, nextState)
     const result = await bigfoot.getState(target)
     expect(result).to.deep.equal(nextState)
+
+    // Add another state change
+    await bigfoot.setState(target, { param: 'another' })
+    const result2nd = await bigfoot.getState(target)
+    expect(result2nd).to.deep.equal({...nextState, param: 'another'})
     bigfoot.halt(instance)
   })
 })

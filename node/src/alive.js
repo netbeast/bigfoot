@@ -5,36 +5,55 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const ip = require('ip')
 
-module.exports = (options) => {
-  const {udn, topic = 'all'} = options
+module.exports = (options, handler) => {
+  const {id, topic = 'all'} = options
 
   return new Promise((resolve, reject) => {
     const api = express()
     const store = createStore()
-    const dummyGetter = commit => commit(store.getState())
-    const dummySetter = (params, commit) => commit(store.setState(params))
 
-    const getHandler = options.getHandler || dummyGetter
-    const setHandler = options.setHandler || dummySetter
+    const dummyGetter = commit => commit(store.getState())
+    const dummySetter = (commit, params) => {
+      store.setState(params)
+      commit(store.getState())
+    }
+    const getHandler = handler || dummyGetter
+    const setHandler = handler || dummySetter
 
     api.use(bodyParser.json())
     api.get('/', (req, res) => {
+      res.json({
+        ...options,
+        state: store.getState(),
+      })
+    })
+    api.post('/', (req, res) => {
+      setHandler(commitedState => {
+        store.setState(commitedState)
+        res.json(commitedState)
+      }, req.body.state)
+    })
+    api.get('/state', (req, res) => {
       getHandler(commitedState => {
         store.setState(commitedState)
         res.json(commitedState)
       })
     })
-    api.post('/', (req, res) => {
-      setHandler(req.body, commitedState => {
+    api.post('/state', (req, res) => {
+      setHandler(commitedState => {
         store.setState(commitedState)
         res.json(commitedState)
-      })
+      }, req.body)
     })
 
     const httpServer = api.listen(function () {
       const port = httpServer.address().port
+      /**
+      * With an SSDP handler, the unique device identifier
+      * must be specified as UDN param
+      */
       const ssdpServer = new Ssdp.Server({
-        udn,
+        udn: id,
         location: `http://${ip.address()}:${port}`,
         sourcePort: 1900,
       })
@@ -51,8 +70,7 @@ module.exports = (options) => {
         api,
         httpServer,
         ssdpServer,
-        udn,
-        topic,
+        ...options,
       })
     })
   })
