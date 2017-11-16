@@ -65,4 +65,35 @@ describe('🐾  Bigfoot', function () {
     expect(result2nd).to.deep.equal({...nextState, param: 'another'})
     bigfoot.halt(instance)
   })
+
+  it('should handle requests', (done) => {
+    let instance
+    bigfoot.alive({id: 'unique-id'}, (commit, params) => {
+      expect(params).to.equal(undefined)
+      expect(commit).to.be.a('function')
+      // We need to finish the request so the socket closes
+      commit()
+      done()
+      bigfoot.halt(instance)
+    }).then(bfoot => {
+      instance = bfoot
+      return bigfoot.hunt({id: 'unique-id::bigfoot:all', duration: 24})
+    }).then(device => bigfoot.getState(device))
+      .catch(done)
+  })
+
+  it('should handle state changes', async () => {
+    let innerState = {}
+    const instance = await bigfoot.alive({id: 'unique-id'}, (commit, params) => {
+      innerState = { ...innerState, ...params }
+      commit(innerState)
+    })
+
+    const nextState = {power: 0, color: '#ff00ee'}
+    const device = await bigfoot.hunt({id: 'unique-id::bigfoot:all', duration: 24})
+    await bigfoot.setState(device, nextState)
+    const result = await bigfoot.getState(device)
+    expect(result).to.deep.equal(nextState)
+    bigfoot.halt(instance)
+  })
 })

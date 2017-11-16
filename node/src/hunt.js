@@ -15,7 +15,7 @@ module.exports = (callback, options = defaultOptions) => {
     : options
 
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    const timerRef = setTimeout(() => {
       if (typeof callback === 'function') callback(devices)
       resolve(devices)
     }, opts.duration || 2500)
@@ -27,6 +27,12 @@ module.exports = (callback, options = defaultOptions) => {
 
       if (!(searchTarget.match(/^bigfoot:/) || {}).input) {
         return // Do nothing
+      }
+
+      // Enable to hunt only one device
+      if (opts.id === headers.USN) {
+        clearTimeout(timerRef)
+        return resolve(parseResponse(headers, statusCode, rinfo))
       }
 
       devices = {

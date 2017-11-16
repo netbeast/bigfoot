@@ -67,7 +67,6 @@ module.exports = (options, handler) => {
       })
 
       return resolve({
-        api,
         httpServer,
         ssdpServer,
         ...options,
