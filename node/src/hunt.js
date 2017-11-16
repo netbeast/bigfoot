@@ -8,11 +8,15 @@ const defaultOptions = {
 
 module.exports = (callback, options = defaultOptions) => {
   let devices = {}
+  const opts = typeof callback === 'object'
+    ? callback
+    : options
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (callback) callback(devices)
+      if (typeof callback === 'function') callback(devices)
       resolve(devices)
-    }, options.duration)
+    }, opts.duration || 2500)
 
     client = new Client()
     client.search('ssdp:all')
