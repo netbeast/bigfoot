@@ -20,7 +20,7 @@ module.exports = (callback, options = defaultOptions) => {
       resolve(devices)
     }, opts.duration || 2500)
 
-    client = new Client()
+    const client = new Client()
     client.search('ssdp:all')
     client.on('response', (headers, statusCode, rinfo) => {
       const searchTarget = headers.ST

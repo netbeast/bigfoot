@@ -14,10 +14,8 @@ module.exports = ({udn, topic = 'all'}) => {
     })
 
     const httpServer = api.listen(function () {
-      const addr = httpServer.address().address
       const port = httpServer.address().port
-
-      ssdpServer = new Ssdp.Server({
+      const ssdpServer = new Ssdp.Server({
         udn,
         location: `http://${ip.address()}:${port}`,
         sourcePort: 1900,

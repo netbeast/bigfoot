@@ -22,10 +22,9 @@ app.get('/:device_id', function (req, res) {
 
 app.post('/:device_id', function (req, res) {
   if (!req.params.device_id) {
-    res.status(404).send("No device available")
+    res.status(404).send('No device available')
   }
 
   store.setState({ [req.params.device_id]: req.body })
   res.json(store.getState()[req.params.device_id])
 })
-

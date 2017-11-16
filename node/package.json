@@ -4,7 +4,8 @@
   "description": "A node.js wrapper for the Bigfoot project",
   "main": "bigfoot.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "node_modules/.bin/eslint src"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,12 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.11.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "mocha": "^4.0.1",
     "supertest": "^3.0.0"
   }

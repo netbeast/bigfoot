@@ -1,5 +1,4 @@
-
-const request = require('supertest')
+/* global describe, it */
 const chai = require('chai')
 
 const bigfoot = require('../bigfoot')
@@ -8,7 +7,7 @@ chai.should()
 const expect = chai.expect
 const assert = chai.assert
 
-describe('🐾  Bigfoot', function() {
+describe('🐾  Bigfoot', function () {
   this.timeout(5000)
 
   it('should be able to use `hunt` as callback and promise', (done) => {
@@ -51,4 +50,3 @@ describe('🐾  Bigfoot', function() {
     bigfoot.halt(instance)
   })
 })
-

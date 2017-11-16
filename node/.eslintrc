@@ -1,0 +1,15 @@
+{
+  "extends": "standard",
+  "rules": {
+    "comma-dangle": [
+      "warn",
+      { // Fixes airbnb issue on JSX comma dangle
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ]
+  }
+}
