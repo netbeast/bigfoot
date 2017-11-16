@@ -18,7 +18,7 @@ let initialState = {
       color: '#ffff00',
       brightness: 80,
       temperature: 50,
-    }
+    },
   },
   bigfootPlugId: {
     id: 'bigfootPlugId',
@@ -26,9 +26,8 @@ let initialState = {
     topic: 'Switch',
     state: {
       power: 0,
-    }
-  }
+    },
+  },
 }
 
 module.exports = createStore(initialState)
-

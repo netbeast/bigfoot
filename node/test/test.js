@@ -49,4 +49,15 @@ describe('🐾  Bigfoot', function () {
     expect(result.reachable).to.equal(true)
     bigfoot.halt(instance)
   })
+
+  it('should enable a dummy device, without listeners', async () => {
+    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const devices = await bigfoot.hunt({duration: 24})
+    const target = devices['unique-id::bigfoot:all']
+    const nextState = { active: true }
+    await bigfoot.setState(target, nextState)
+    const result = await bigfoot.getState(target)
+    expect(result).to.deep.equal(nextState)
+    bigfoot.halt(instance)
+  })
 })

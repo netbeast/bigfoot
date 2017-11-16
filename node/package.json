@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "ip": "^1.1.5",
     "node-ssdp": "^3.2.5",
+    "redux-zero": "^4.5.0",
     "stringcase": "^4.0.0"
   },
   "devDependencies": {

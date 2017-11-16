@@ -2,6 +2,7 @@ const Ssdp = require('node-ssdp')
 const ip = require('ip')
 
 const bridge = require('./bridge')
+let ssdpServer
 
 const httpServer = bridge.listen(function () {
   const addr = httpServer.address().address
@@ -17,7 +18,7 @@ const httpServer = bridge.listen(function () {
   ssdpServer.start()
 })
 
-process.on('exit', function() {
+process.on('exit', function () {
   ssdpServer.stop() // advertise shutting down and stop listening
-  app.stop() // close express server
+  httpServer.stop() // close express server
 })

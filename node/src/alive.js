@@ -1,16 +1,34 @@
 // node/samples/mock-device
+const createStore = require('redux-zero')
 const Ssdp = require('node-ssdp')
 const express = require('express')
 const bodyParser = require('body-parser')
 const ip = require('ip')
 
-module.exports = ({udn, topic = 'all'}) => {
+module.exports = (options) => {
+  const {udn, topic = 'all'} = options
+
   return new Promise((resolve, reject) => {
     const api = express()
-    api.use(bodyParser.json())
+    const store = createStore()
+    const dummyGetter = commit => commit(store.getState())
+    const dummySetter = (params, commit) => commit(store.setState(params))
 
+    const getHandler = options.getHandler || dummyGetter
+    const setHandler = options.setHandler || dummySetter
+
+    api.use(bodyParser.json())
     api.get('/', (req, res) => {
-      res.status(200).send()
+      getHandler(commitedState => {
+        store.setState(commitedState)
+        res.json(commitedState)
+      })
+    })
+    api.post('/', (req, res) => {
+      setHandler(req.body, commitedState => {
+        store.setState(commitedState)
+        res.json(commitedState)
+      })
     })
 
     const httpServer = api.listen(function () {

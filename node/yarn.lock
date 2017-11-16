@@ -1165,6 +1165,10 @@ readable-stream@^2.0.5, readable-stream@^2.2.2:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+redux-zero@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/redux-zero/-/redux-zero-4.5.0.tgz#b76caf2e1d50fc656b2d005a6a8dbc014d9f4ee6"
+
 require-uncached@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/require-uncached/-/require-uncached-1.0.3.tgz#4e0d56d6c9662fd31e43011c4b95aa49955421d3"
