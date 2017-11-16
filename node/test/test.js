@@ -29,6 +29,19 @@ describe('🐾  Bigfoot', function() {
     bigfoot.halt(instance)
   })
 
+  it('should throw without bigfoot instance', async () => {
+    const instance = await bigfoot.alive({udn: 'unique-id'})
+    const devices = await bigfoot.hunt({duration: 24})
+    const target = devices['unique-id::bigfoot:all']
+    bigfoot.halt(instance)
+    try {
+      await bigfoot.poke(target)
+      throw new Error('Should throw when device unreachable')
+    } catch (err) {
+      expect(err.code).to.equal('ECONNREFUSED')
+    }
+  })
+
   it('should poke an alive bigfoot instance', async () => {
     const instance = await bigfoot.alive({udn: 'unique-id'})
     const devices = await bigfoot.hunt({duration: 24})
