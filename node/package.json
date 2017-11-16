@@ -1,5 +1,5 @@
 {
-  "name": "bigfoot",
+  "name": "@netbeast/bigfoot",
   "version": "0.0.1-alpha",
   "description": "A node.js wrapper for the Bigfoot project",
   "main": "bigfoot.js",
