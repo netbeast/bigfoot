@@ -6,7 +6,7 @@ A toolbet for IoT software tools that work together.
 2. Have pre-made or many compatible user interfaces
 3. Simple, lightweight APIs
 
-> [Join us in Slack](https://jsdario1.typeform.com/to/DWNBO2)
+> [Join us in Slack](https://netbeast-community.slack.com/signup)
 
 ## How does it work?
 
@@ -294,7 +294,7 @@ devices.
 
 * [x] Define the scope of the project
 * [x] [Website](https://netbeast.github.io/bigfoot/)
-* [ ] Open channels for collaborators \(chats, forums or emails\)
+* [x] [Open channels for collaborators](https://netbeast-community.slack.com/signup)
 * [ ] Write strategies
   * [x] Get Started
   * [x] Discovery
