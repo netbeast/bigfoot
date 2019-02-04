@@ -1,0 +1,18 @@
+{
+  "name": "bigfoot-sensor",
+  "version": "0.0.1",
+  "description": "Sample on how to create multi-variable sensors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "jesus@netbeast.co",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "ip": "^1.1.5",
+    "node-ssdp": "^3.2.1"
+  }
+}
