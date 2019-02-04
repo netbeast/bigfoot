@@ -2,8 +2,9 @@
 ## Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-## Choose yarn over npm
+## Opinionated; Choose yarn over npm
 package-lock.json
+npm-debug.log
 
 ## Dependency directory
 ## Commenting this out is preferred by some people, see
