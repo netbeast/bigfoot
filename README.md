@@ -297,7 +297,8 @@ devices.
   * [x] Get Started
   * [x] Discovery
   * [x] Ping
-  * [x] setState
+  * [x] State Mutations
+  * [ ] Properties `/accessory`
   * [ ] Pairing devices
   * [ ] Reactive events
   * [ ] Notifications
