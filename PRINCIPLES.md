@@ -49,7 +49,7 @@ This is also general to software development: you should avoid too much abstract
 unintentional dependencies. APIs should be always stable and not change often. And when they do, they should respect existing
 codebases and previous design to avoid breaking existing apps.
 
-## 4. Ecosystem compliance
+## 4. Ecosystem compliance
 
 > Adoption is a goal
 
