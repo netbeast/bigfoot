@@ -76,7 +76,7 @@ Let's keep learning...
 ### Ping
 
 This is intended to be the most lightweight method to check that connectivity 
-to your device works. If you implement an interface through HTTP 
+to your accessory works. If you implement an interface through HTTP 
 \(as described in [skills](/skills.md)\) we'd only need to specify the port 
 where the service is running as the **location** parameter:
 
@@ -114,7 +114,8 @@ appears in our Yeti \(Bigfoot compatible\) device. This is because we had not
 specified any skill or topic that it can work as. So let's move on now.
 
 # Skills
-We can now already expose a webview for our connected device to a Bigfoot compatible software:
+With skills we plan to refer the capabilities of what an accessory can do. For example, the simplest
+interface we can implement is a webview for Bigfoot compatible software:
 
 ```js
 // node/samples/webapp
@@ -164,12 +165,13 @@ ssdpServer.addUSN('bigfoot:app')
 And Bigfoot compatible devices are going to interpret it as different devices.
 
 ### Available topics
-* `App`: exposes an app through a webserver, so the developer can implement its own interface.
+* `App`: exposes an app through a webserver, so the developer can implement its own interface
 * `Bridge`: a device that can find and talk to other devices
 * `Bulb`: to control lightning systems
 * `Music` : things that can consume 
 * `Thermostat`: a heat / cold system
 * `Switch`: a plug or system with two states \(on/off\)
+* `Sensor`: an accessory with a read-only state, with keys and values to display
 
 ## Implementing a topic
 
@@ -232,9 +234,15 @@ process.on('exit', function() {
 ```
 
 **Topics** stand for a _kind_ of device and groups a set of variables or dimensions
- to be used. It is a shortcut for the **skills of a device**. For example if 
+ to be used. It is a shortcut for the **skills of an accessory**. For example if 
  the topic of your thing is _light_ or _bulb_ the rest of the parties will 
- immediately know that you must support a certain state:
+ immediately know that you must support a certain **state**.
+ 
+ ### State
+ 
+> Said of accessory values that can change without necessary user input. They reflect the nature of the appliance;
+Whether a bulb is on or off, a thermometer reads 30ºC or a movement sensor detects presence. 
+
 
 ```js
 /* @flow */
@@ -281,12 +289,44 @@ export type ThermostatState = {
 }
 ```
 
-## Create a bridge
-You can use special topics as `app` or `bridge` to connect with devices that 
-are outside current compatible protocols.
+## Accessory properties
+> Accessory values that require user input through a software client to change, or simply don't. This can be true for the accessory name, icon, label, room they belong, etc. The device MAC address or unique ID are typical immutable properties.
 
-The only difference is that the `state` that we must return is an array of 
-devices.
+### Changing the accessory name
+By accessing the route `/accessory`, it should return all its qualities (both properties and state). For instance, this is
+how Yeti serializes a Philips Hue bulb:
+
+```json
+    {
+      "id": "[UNIQUE IMMUTABLE STRING]",
+      "name": "Front Lamp",
+      "topic": "Bulb",
+      "brand": "PhilipsHue",
+      "room_label": "Bedroom",
+      "bridge": {
+        "id": "[UNIQUE IMMUTABLE STRING]",
+        "ip": "192.168.1.101:80",
+        "userId": "[SECRET UNIQUE STRING]"
+      },
+      "state": {
+        "brightness": 98,
+        "color": "#f90025",
+        "colormode": "hue",
+        "power": 0,
+        "temperature": 6535.9477124183
+      }
+   }
+```
+
+If a Bigfoot accessory comes with a certain name, that's what will be portrayed in Yeti Smart Home,
+or what should be displayed in other clients. By implementing both `GET` and `POST` at the route
+`/accessory` you will have an appliance with a custom name, that is synced across clients.
+
+## Create a bridge
+You can use special topics as `app` or `bridge` to connect with accessories that 
+are outside current compatible protocols with the target Bigfoot client (i.e. Yeti)
+
+🚧 This section is in construction
 
 ## Roadmap
 
