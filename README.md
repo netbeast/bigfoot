@@ -339,6 +339,7 @@ Bigfoot is an Open Source Project. This means that:
 commit-access to the project to contribute as they see fit. This project is 
 more like an open wiki than a standard guarded open source project.
 
+Read the [Design Principles](PRINCIPLES.md) to understand the resoning behind our decision making.
 See the [CONTRIBUTING.md](CONTRIBUTING.md) guide for more details.
 
 # Sponsors
