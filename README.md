@@ -6,8 +6,6 @@ A toolbet for IoT software tools that work together.
 2. Have pre-made or many compatible user interfaces
 3. Simple, lightweight APIs
 
-> [Join us in Slack](https://netbeast-community.slack.com/signup)
-
 ## How does it work?
 
 ![concept](assets/img/concept.png)
