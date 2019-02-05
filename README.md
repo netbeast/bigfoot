@@ -322,6 +322,16 @@ If a Bigfoot accessory comes with a certain name, that's what will be portrayed 
 or what should be displayed in other clients. By implementing both `GET` and `POST` at the route
 `/accessory` you will have an appliance with a custom name, that is synced across clients.
 
+You can add a "bigfoot" field with information about the supported protocols and versioning:
+
+```json
+"bigfoot": {
+  "version": "0.1.0",
+  "network_ssid": "netbeast",
+  "network_pass": [SECRET STRING]
+}
+```
+
 ## Create a bridge
 You can use special topics as `app` or `bridge` to connect with accessories that 
 are outside current compatible protocols with the target Bigfoot client (i.e. Yeti)
