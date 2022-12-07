@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "ip": "^1.1.5",
     "node-ssdp": "^3.2.1",
     "rpi-gpio": "^0.8.1"
