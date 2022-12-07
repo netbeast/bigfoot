@@ -9,7 +9,7 @@
   "author": "jesus@netbeast.co",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "node-ssdp": "^3.2.1"
   }
 }
